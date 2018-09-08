@@ -7,44 +7,56 @@
 #include "drv_canfdspi_register.h"
 #include "mcp9808.h"
 
-void transmitMessage( char *msg );
 #define LED1_TOG PORTB ^= (1<<_PORTB_RB6_POSITION) /*changes the bit state to the opposite*/
+#define cREGADDR_CiFIFOUA1   0x64
+#define cREGADDR_CiFIFSTA1   0x60
 
-int main(void)
+
+void TransmitMessageLoad(char *msg);
+        
+CAN_TX_FIFO_EVENT         txFlags;
+CAN_TX_MSGOBJ             txObj;
+uint8_t                   txData[MAX_DATA_BYTES];
+bool                      flush;
+
+     int main(void)
 {
     /*initialize the device*/
     SYSTEM_Initialize();
-    DRV_CANFDSPI_Reset();
     DRV_CANFDSPI_MY_Configure();
     lcd_Initialize();
-            
+        
     WpiszSwojeZnaki(); /*definjujemy znak stopien celciusza czyli male koleczko*/
-    lcd_Locate(2,1);
-    lcd_String("Temp :");
+    lcd_Locate(1,1);
+    lcd_String("EFMSGCNT"); /*free error message counter*/
+     
    
     TMR2_Start();
-   
+       
     while (1)
     {
         if(!TimerA_Programowy) {
-              TimerA_Programowy = 10 ; /*Timer2 sprzetowy x TimerA_Programowy = 25ms x 10 = 250ms*/       
-              read_Temp(); /*read from MCP9808 temperature and display it on LCD*/
-              transmitMessage(Temperature_bufor); /*send temperature*/
+              TimerA_Programowy = 60 ; /*Timer2 sprzetowy x TimerA_Programowy = 25ms x 10 = 250ms*/       
+              //read_Temp(); /*read from MCP9808 temperature and display it on LCD*/
+         
+   
+    TransmitMessageLoad("TEST"); /*send temperature Temperature_bufor*/
+           //       Read data back from registers
+  
+            
+      
               LED1_TOG;
                                           
           }
       
-     }
+
+    }
 }
 
 
- void transmitMessage( char *msg )
+ void TransmitMessageLoad( char *msg )
  {
-     CAN_TX_FIFO_EVENT         txFlags;
-     CAN_TX_MSGOBJ             txObj;
-     uint8_t                   txData[MAX_DATA_BYTES];
-     bool                      flush;
-     
+          
      flush = true;
      txObj.word[0] = 0;
      txObj.word[1] = 0;
@@ -52,28 +64,48 @@ int main(void)
      txObj.bF.id.SID = 0x300; /*standard or Base ID*/
      txObj.bF.id.EID = 0;
      
-     txObj.bF.ctrl.FDF = 1; /*CAN FD frame*/
-     txObj.bF.ctrl.BRS = 1; /*switch bit rate*/
+     txObj.bF.ctrl.FDF = 0; /*CAN 2.0 frame*/
+     txObj.bF.ctrl.BRS = 0; /*switch bit rate for CAN FD*/
      txObj.bF.ctrl.IDE = 0; /*standard frame*/
      txObj.bF.ctrl.RTR = 0; /*not a remote frame request*/
-     txObj.bF.ctrl.DLC = CAN_DLC_64; /*65 data bytes*/
+     txObj.bF.ctrl.DLC = CAN_DLC_8; /*8 data bytes*/
      txObj.bF.ctrl.SEQ = 1; /*sequence: doesn't get transmitted but will be stored in TEF*/
      
-     memset(txData, 0, MAX_DATA_BYTES); /*reset*/
-     strcpy(txData, msg);
-     DRV_CANFDSPI_TransmitChannelEventGet(CAN_FIFO_CH1, &txFlags);
+//     memset(txData, 0, MAX_DATA_BYTES); /*reset*/
+//     strcpy(txData, msg);
+            
+  //Read data back from registers
+    uint8_t rxd[4];
+    DRV_CANFDSPI_ReadByteArray(cREGADDR_CiBDIAG1 , rxd, 4);
+    lcd_Locate(2,1);
+    lcd_Integer(rxd[0]+rxd[1]);
+//    lcd_String(":");
+//    lcd_Integer(rxd[1]);
+//    lcd_String(":");
+//    lcd_Integer(rxd[2]);
+//    lcd_String(":");
+//    lcd_Integer(rxd[3]);
+   
+//      uint8_t rxd[72];
+//    // Read data back from RAM
+//    DRV_CANFDSPI_ReadByteArray((cRAMADDR_START), rxd, 72);
+//    lcd_Locate(2,1);
+//   
+//    lcd_Integer(rxd[4]);
+//    lcd_String(":");
+//    lcd_Integer(rxd[5]);
+//    lcd_String(":");
+//    lcd_Integer(rxd[6]);
+//    lcd_String(":");
+//    lcd_Integer(rxd[7]);
+       
+    DRV_CANFDSPI_TransmitChannelLoad(CAN_FIFO_CH1, &txObj, msg, DRV_CANFDSPI_DlcToDataBytes(txObj.bF.ctrl.DLC), true); 
+    
+    
+        
+    
      
-     if( txFlags & CAN_TX_FIFO_NOT_FULL )
-     {
-         DRV_CANFDSPI_TransmitChannelLoad(CAN_FIFO_CH1, &txObj, txData, DRV_CANFDSPI_DlcToDataBytes(txObj.bF.ctrl.DLC), flush);
-         lcd_Locate(1,1);
-         lcd_String("CAN Message sent");
-         }
-     else
-     {
-         lcd_Locate(1,1);
-         lcd_String("Message not sent");
-     }
+      
  }
 
 

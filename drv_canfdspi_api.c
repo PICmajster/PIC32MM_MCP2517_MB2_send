@@ -533,25 +533,27 @@ void DRV_CANFDSPI_MY_Configure(void)
    config.IsoCrcEnable = 0;
    config.StoreInTEF = 0;
    config.TXQEnable = 0;
+   config.BitRateSwitchDisable = 1 ;
    DRV_CANFDSPI_Configure(&config);
    
-   /*Bit Time configuration : 500K/2M , 80% sample point , SYSCLK 20MHz*/
-   DRV_CANFDSPI_BitTimeConfigure(CAN_500K_2M, CAN_SSP_MODE_AUTO, CAN_SYSCLK_20M);
+   /*Bit Time configuration : 125K/500K , 80% sample point , SYSCLK 20MHz*/
+   DRV_CANFDSPI_BitTimeConfigure(CAN_125K_500K, CAN_SSP_MODE_OFF, CAN_SYSCLK_20M);
    
-    /*FIFO 1: Transmit FIFO; 2 messages, 64 byte maximum payload, low priority*/
+     
+    /*FIFO 1: Transmit FIFO; 1 messages, 64 byte maximum payload, low priority*/
     CAN_TX_FIFO_CONFIG txfConfig;
     DRV_CANFDSPI_TransmitChannelConfigureObjectReset(&txfConfig);
-    txfConfig.FifoSize = 1;
-    txfConfig.PayLoadSize = CAN_PLSIZE_64;
+    txfConfig.FifoSize = 0; //0 = 1 message
+    txfConfig.PayLoadSize = CAN_PLSIZE_8;
     txfConfig.TxPriority = 0;
     DRV_CANFDSPI_TransmitChannelConfigure(CAN_FIFO_CH1, &txfConfig);
 
-    /*FIFO 2: Receive FIFO; 3 messages, 16 byte maximum payload, time stamping disabled*/
-    CAN_RX_FIFO_CONFIG rxfConfig;
-    rxfConfig.FifoSize = 2;
-    rxfConfig.PayLoadSize = CAN_PLSIZE_16;
-    rxfConfig.RxTimeStampEnable = 0;
-    DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_CH2, &rxfConfig);
+    /*FIFO 2: Receive FIFO; 1 messages, 8 byte maximum payload, time stamping disabled*/
+//    CAN_RX_FIFO_CONFIG rxfConfig;
+//    rxfConfig.FifoSize = 0;
+//    rxfConfig.PayLoadSize = CAN_PLSIZE_64;
+//    rxfConfig.RxTimeStampEnable = 0;
+//    DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_CH2, &rxfConfig);
     
     /*Double Check RAM Usage: 216 Bytes out of a maximum of 2048 Bytes -> OK.*/
     /*Disable ECC*/
@@ -561,7 +563,7 @@ void DRV_CANFDSPI_MY_Configure(void)
     DRV_CANFDSPI_RamInit(0xff);
 
     /*Configuration Done: Select Normal Mode*/
-    DRV_CANFDSPI_OperationModeSelect(CAN_NORMAL_MODE);
+    DRV_CANFDSPI_OperationModeSelect(CAN_CLASSIC_MODE);
     
 }
 
@@ -752,7 +754,8 @@ int8_t DRV_CANFDSPI_TransmitChannelLoad(CAN_FIFO_CHANNEL channel, CAN_TX_MSGOBJ*
     REG_CiFIFOSTA ciFifoSta;
     REG_CiFIFOUA ciFifoUa;
     int8_t spiTransferError = 0;
-
+ 
+     
     // Get FIFO registers
     a = cREGADDR_CiFIFOCON + (channel * CiFIFO_OFFSET);
 

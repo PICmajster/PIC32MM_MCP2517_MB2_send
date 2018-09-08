@@ -56,6 +56,734 @@
 */
 /**
   @Summary
+    Sets the GPIO pin, RA10, high using LATAbits.LATA10.
+
+  @Description
+    Sets the GPIO pin, RA10, high using LATAbits.LATA10.
+
+  @Preconditions
+    The RA10 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA10 high (1)
+    SCK3_SetHigh();
+    </code>
+
+*/
+#define SCK3_SetHigh()          ( LATASET = (1 << 10) )
+/**
+  @Summary
+    Sets the GPIO pin, RA10, low using LATAbits.LATA10.
+
+  @Description
+    Sets the GPIO pin, RA10, low using LATAbits.LATA10.
+
+  @Preconditions
+    The RA10 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA10 low (0)
+    SCK3_SetLow();
+    </code>
+
+*/
+#define SCK3_SetLow()           ( LATACLR = (1 << 10) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RA10, low or high using LATAbits.LATA10.
+
+  @Preconditions
+    The RA10 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RA10 to low.
+    SCK3_SetValue(false);
+    </code>
+
+*/
+inline static void SCK3_SetValue(bool value)
+{
+  if(value)
+  {
+    SCK3_SetHigh();
+  }
+  else
+  {
+    SCK3_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RA10, using LATAbits.LATA10.
+
+  @Description
+    Toggles the GPIO pin, RA10, using LATAbits.LATA10.
+
+  @Preconditions
+    The RA10 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA10
+    SCK3_Toggle();
+    </code>
+
+*/
+#define SCK3_Toggle()           ( LATAINV = (1 << 10) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA10.
+
+  @Description
+    Reads the value of the GPIO pin, RA10.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA10
+    postValue = SCK3_GetValue();
+    </code>
+
+*/
+#define SCK3_GetValue()         PORTAbits.RA10
+/**
+  @Summary
+    Configures the GPIO pin, RA10, as an input.
+
+  @Description
+    Configures the GPIO pin, RA10, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA10 as an input
+    SCK3_SetDigitalInput();
+    </code>
+
+*/
+#define SCK3_SetDigitalInput()   ( TRISASET = (1 << 10) )
+/**
+  @Summary
+    Configures the GPIO pin, RA10, as an output.
+
+  @Description
+    Configures the GPIO pin, RA10, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA10 as an output
+    SCK3_SetDigitalOutput();
+    </code>
+
+*/
+#define SCK3_SetDigitalOutput()   ( TRISACLR = (1 << 10) )
+/**
+  @Summary
+    Sets the GPIO pin, RA2, high using LATAbits.LATA2.
+
+  @Description
+    Sets the GPIO pin, RA2, high using LATAbits.LATA2.
+
+  @Preconditions
+    The RA2 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA2 high (1)
+    IO_RA2_SetHigh();
+    </code>
+
+*/
+#define IO_RA2_SetHigh()          ( LATASET = (1 << 2) )
+/**
+  @Summary
+    Sets the GPIO pin, RA2, low using LATAbits.LATA2.
+
+  @Description
+    Sets the GPIO pin, RA2, low using LATAbits.LATA2.
+
+  @Preconditions
+    The RA2 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA2 low (0)
+    IO_RA2_SetLow();
+    </code>
+
+*/
+#define IO_RA2_SetLow()           ( LATACLR = (1 << 2) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RA2, low or high using LATAbits.LATA2.
+
+  @Preconditions
+    The RA2 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RA2 to low.
+    IO_RA2_SetValue(false);
+    </code>
+
+*/
+inline static void IO_RA2_SetValue(bool value)
+{
+  if(value)
+  {
+    IO_RA2_SetHigh();
+  }
+  else
+  {
+    IO_RA2_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RA2, using LATAbits.LATA2.
+
+  @Description
+    Toggles the GPIO pin, RA2, using LATAbits.LATA2.
+
+  @Preconditions
+    The RA2 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA2
+    IO_RA2_Toggle();
+    </code>
+
+*/
+#define IO_RA2_Toggle()           ( LATAINV = (1 << 2) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA2.
+
+  @Description
+    Reads the value of the GPIO pin, RA2.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA2
+    postValue = IO_RA2_GetValue();
+    </code>
+
+*/
+#define IO_RA2_GetValue()         PORTAbits.RA2
+/**
+  @Summary
+    Configures the GPIO pin, RA2, as an input.
+
+  @Description
+    Configures the GPIO pin, RA2, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA2 as an input
+    IO_RA2_SetDigitalInput();
+    </code>
+
+*/
+#define IO_RA2_SetDigitalInput()   ( TRISASET = (1 << 2) )
+/**
+  @Summary
+    Configures the GPIO pin, RA2, as an output.
+
+  @Description
+    Configures the GPIO pin, RA2, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA2 as an output
+    IO_RA2_SetDigitalOutput();
+    </code>
+
+*/
+#define IO_RA2_SetDigitalOutput()   ( TRISACLR = (1 << 2) )
+/**
+  @Summary
+    Sets the GPIO pin, RA7, high using LATAbits.LATA7.
+
+  @Description
+    Sets the GPIO pin, RA7, high using LATAbits.LATA7.
+
+  @Preconditions
+    The RA7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA7 high (1)
+    SDI3_SetHigh();
+    </code>
+
+*/
+#define SDI3_SetHigh()          ( LATASET = (1 << 7) )
+/**
+  @Summary
+    Sets the GPIO pin, RA7, low using LATAbits.LATA7.
+
+  @Description
+    Sets the GPIO pin, RA7, low using LATAbits.LATA7.
+
+  @Preconditions
+    The RA7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA7 low (0)
+    SDI3_SetLow();
+    </code>
+
+*/
+#define SDI3_SetLow()           ( LATACLR = (1 << 7) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RA7, low or high using LATAbits.LATA7.
+
+  @Preconditions
+    The RA7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RA7 to low.
+    SDI3_SetValue(false);
+    </code>
+
+*/
+inline static void SDI3_SetValue(bool value)
+{
+  if(value)
+  {
+    SDI3_SetHigh();
+  }
+  else
+  {
+    SDI3_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RA7, using LATAbits.LATA7.
+
+  @Description
+    Toggles the GPIO pin, RA7, using LATAbits.LATA7.
+
+  @Preconditions
+    The RA7 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA7
+    SDI3_Toggle();
+    </code>
+
+*/
+#define SDI3_Toggle()           ( LATAINV = (1 << 7) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA7.
+
+  @Description
+    Reads the value of the GPIO pin, RA7.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA7
+    postValue = SDI3_GetValue();
+    </code>
+
+*/
+#define SDI3_GetValue()         PORTAbits.RA7
+/**
+  @Summary
+    Configures the GPIO pin, RA7, as an input.
+
+  @Description
+    Configures the GPIO pin, RA7, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA7 as an input
+    SDI3_SetDigitalInput();
+    </code>
+
+*/
+#define SDI3_SetDigitalInput()   ( TRISASET = (1 << 7) )
+/**
+  @Summary
+    Configures the GPIO pin, RA7, as an output.
+
+  @Description
+    Configures the GPIO pin, RA7, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA7 as an output
+    SDI3_SetDigitalOutput();
+    </code>
+
+*/
+#define SDI3_SetDigitalOutput()   ( TRISACLR = (1 << 7) )
+/**
+  @Summary
+    Sets the GPIO pin, RA8, high using LATAbits.LATA8.
+
+  @Description
+    Sets the GPIO pin, RA8, high using LATAbits.LATA8.
+
+  @Preconditions
+    The RA8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA8 high (1)
+    SDO3_SetHigh();
+    </code>
+
+*/
+#define SDO3_SetHigh()          ( LATASET = (1 << 8) )
+/**
+  @Summary
+    Sets the GPIO pin, RA8, low using LATAbits.LATA8.
+
+  @Description
+    Sets the GPIO pin, RA8, low using LATAbits.LATA8.
+
+  @Preconditions
+    The RA8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA8 low (0)
+    SDO3_SetLow();
+    </code>
+
+*/
+#define SDO3_SetLow()           ( LATACLR = (1 << 8) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RA8, low or high using LATAbits.LATA8.
+
+  @Preconditions
+    The RA8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RA8 to low.
+    SDO3_SetValue(false);
+    </code>
+
+*/
+inline static void SDO3_SetValue(bool value)
+{
+  if(value)
+  {
+    SDO3_SetHigh();
+  }
+  else
+  {
+    SDO3_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RA8, using LATAbits.LATA8.
+
+  @Description
+    Toggles the GPIO pin, RA8, using LATAbits.LATA8.
+
+  @Preconditions
+    The RA8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA8
+    SDO3_Toggle();
+    </code>
+
+*/
+#define SDO3_Toggle()           ( LATAINV = (1 << 8) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA8.
+
+  @Description
+    Reads the value of the GPIO pin, RA8.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA8
+    postValue = SDO3_GetValue();
+    </code>
+
+*/
+#define SDO3_GetValue()         PORTAbits.RA8
+/**
+  @Summary
+    Configures the GPIO pin, RA8, as an input.
+
+  @Description
+    Configures the GPIO pin, RA8, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA8 as an input
+    SDO3_SetDigitalInput();
+    </code>
+
+*/
+#define SDO3_SetDigitalInput()   ( TRISASET = (1 << 8) )
+/**
+  @Summary
+    Configures the GPIO pin, RA8, as an output.
+
+  @Description
+    Configures the GPIO pin, RA8, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA8 as an output
+    SDO3_SetDigitalOutput();
+    </code>
+
+*/
+#define SDO3_SetDigitalOutput()   ( TRISACLR = (1 << 8) )
+/**
+  @Summary
     Sets the GPIO pin, RB10, high using LATBbits.LATB10.
 
   @Description
@@ -420,6 +1148,188 @@ inline static void IO_RB11_SetValue(bool value)
 #define IO_RB11_SetDigitalOutput()   ( TRISBCLR = (1 << 11) )
 /**
   @Summary
+    Sets the GPIO pin, RB14, high using LATBbits.LATB14.
+
+  @Description
+    Sets the GPIO pin, RB14, high using LATBbits.LATB14.
+
+  @Preconditions
+    The RB14 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RB14 high (1)
+    IO_RB14_SetHigh();
+    </code>
+
+*/
+#define IO_RB14_SetHigh()          ( LATBSET = (1 << 14) )
+/**
+  @Summary
+    Sets the GPIO pin, RB14, low using LATBbits.LATB14.
+
+  @Description
+    Sets the GPIO pin, RB14, low using LATBbits.LATB14.
+
+  @Preconditions
+    The RB14 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RB14 low (0)
+    IO_RB14_SetLow();
+    </code>
+
+*/
+#define IO_RB14_SetLow()           ( LATBCLR = (1 << 14) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RB14, low or high using LATBbits.LATB14.
+
+  @Preconditions
+    The RB14 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RB14 to low.
+    IO_RB14_SetValue(false);
+    </code>
+
+*/
+inline static void IO_RB14_SetValue(bool value)
+{
+  if(value)
+  {
+    IO_RB14_SetHigh();
+  }
+  else
+  {
+    IO_RB14_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RB14, using LATBbits.LATB14.
+
+  @Description
+    Toggles the GPIO pin, RB14, using LATBbits.LATB14.
+
+  @Preconditions
+    The RB14 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RB14
+    IO_RB14_Toggle();
+    </code>
+
+*/
+#define IO_RB14_Toggle()           ( LATBINV = (1 << 14) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RB14.
+
+  @Description
+    Reads the value of the GPIO pin, RB14.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RB14
+    postValue = IO_RB14_GetValue();
+    </code>
+
+*/
+#define IO_RB14_GetValue()         PORTBbits.RB14
+/**
+  @Summary
+    Configures the GPIO pin, RB14, as an input.
+
+  @Description
+    Configures the GPIO pin, RB14, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RB14 as an input
+    IO_RB14_SetDigitalInput();
+    </code>
+
+*/
+#define IO_RB14_SetDigitalInput()   ( TRISBSET = (1 << 14) )
+/**
+  @Summary
+    Configures the GPIO pin, RB14, as an output.
+
+  @Description
+    Configures the GPIO pin, RB14, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RB14 as an output
+    IO_RB14_SetDigitalOutput();
+    </code>
+
+*/
+#define IO_RB14_SetDigitalOutput()   ( TRISBCLR = (1 << 14) )
+/**
+  @Summary
     Sets the GPIO pin, RB6, high using LATBbits.LATB6.
 
   @Description
@@ -600,6 +1510,188 @@ inline static void IO_RB6_SetValue(bool value)
 
 */
 #define IO_RB6_SetDigitalOutput()   ( TRISBCLR = (1 << 6) )
+/**
+  @Summary
+    Sets the GPIO pin, RC1, high using LATCbits.LATC1.
+
+  @Description
+    Sets the GPIO pin, RC1, high using LATCbits.LATC1.
+
+  @Preconditions
+    The RC1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC1 high (1)
+    IO_RC1_SetHigh();
+    </code>
+
+*/
+#define IO_RC1_SetHigh()          ( LATCSET = (1 << 1) )
+/**
+  @Summary
+    Sets the GPIO pin, RC1, low using LATCbits.LATC1.
+
+  @Description
+    Sets the GPIO pin, RC1, low using LATCbits.LATC1.
+
+  @Preconditions
+    The RC1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC1 low (0)
+    IO_RC1_SetLow();
+    </code>
+
+*/
+#define IO_RC1_SetLow()           ( LATCCLR = (1 << 1) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RC1, low or high using LATCbits.LATC1.
+
+  @Preconditions
+    The RC1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RC1 to low.
+    IO_RC1_SetValue(false);
+    </code>
+
+*/
+inline static void IO_RC1_SetValue(bool value)
+{
+  if(value)
+  {
+    IO_RC1_SetHigh();
+  }
+  else
+  {
+    IO_RC1_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RC1, using LATCbits.LATC1.
+
+  @Description
+    Toggles the GPIO pin, RC1, using LATCbits.LATC1.
+
+  @Preconditions
+    The RC1 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RC1
+    IO_RC1_Toggle();
+    </code>
+
+*/
+#define IO_RC1_Toggle()           ( LATCINV = (1 << 1) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RC1.
+
+  @Description
+    Reads the value of the GPIO pin, RC1.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RC1
+    postValue = IO_RC1_GetValue();
+    </code>
+
+*/
+#define IO_RC1_GetValue()         PORTCbits.RC1
+/**
+  @Summary
+    Configures the GPIO pin, RC1, as an input.
+
+  @Description
+    Configures the GPIO pin, RC1, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC1 as an input
+    IO_RC1_SetDigitalInput();
+    </code>
+
+*/
+#define IO_RC1_SetDigitalInput()   ( TRISCSET = (1 << 1) )
+/**
+  @Summary
+    Configures the GPIO pin, RC1, as an output.
+
+  @Description
+    Configures the GPIO pin, RC1, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC1 as an output
+    IO_RC1_SetDigitalOutput();
+    </code>
+
+*/
+#define IO_RC1_SetDigitalOutput()   ( TRISCCLR = (1 << 1) )
 /**
   @Summary
     Sets the GPIO pin, RC3, high using LATCbits.LATC3.
@@ -1146,6 +2238,188 @@ inline static void IO_RC5_SetValue(bool value)
 
 */
 #define IO_RC5_SetDigitalOutput()   ( TRISCCLR = (1 << 5) )
+/**
+  @Summary
+    Sets the GPIO pin, RC8, high using LATCbits.LATC8.
+
+  @Description
+    Sets the GPIO pin, RC8, high using LATCbits.LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC8 high (1)
+    IO_RC8_SetHigh();
+    </code>
+
+*/
+#define IO_RC8_SetHigh()          ( LATCSET = (1 << 8) )
+/**
+  @Summary
+    Sets the GPIO pin, RC8, low using LATCbits.LATC8.
+
+  @Description
+    Sets the GPIO pin, RC8, low using LATCbits.LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RC8 low (0)
+    IO_RC8_SetLow();
+    </code>
+
+*/
+#define IO_RC8_SetLow()           ( LATCCLR = (1 << 8) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RC8, low or high using LATCbits.LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RC8 to low.
+    IO_RC8_SetValue(false);
+    </code>
+
+*/
+inline static void IO_RC8_SetValue(bool value)
+{
+  if(value)
+  {
+    IO_RC8_SetHigh();
+  }
+  else
+  {
+    IO_RC8_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RC8, using LATCbits.LATC8.
+
+  @Description
+    Toggles the GPIO pin, RC8, using LATCbits.LATC8.
+
+  @Preconditions
+    The RC8 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RC8
+    IO_RC8_Toggle();
+    </code>
+
+*/
+#define IO_RC8_Toggle()           ( LATCINV = (1 << 8) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RC8.
+
+  @Description
+    Reads the value of the GPIO pin, RC8.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RC8
+    postValue = IO_RC8_GetValue();
+    </code>
+
+*/
+#define IO_RC8_GetValue()         PORTCbits.RC8
+/**
+  @Summary
+    Configures the GPIO pin, RC8, as an input.
+
+  @Description
+    Configures the GPIO pin, RC8, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC8 as an input
+    IO_RC8_SetDigitalInput();
+    </code>
+
+*/
+#define IO_RC8_SetDigitalInput()   ( TRISCSET = (1 << 8) )
+/**
+  @Summary
+    Configures the GPIO pin, RC8, as an output.
+
+  @Description
+    Configures the GPIO pin, RC8, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RC8 as an output
+    IO_RC8_SetDigitalOutput();
+    </code>
+
+*/
+#define IO_RC8_SetDigitalOutput()   ( TRISCCLR = (1 << 8) )
 /**
   @Summary
     Sets the GPIO pin, RD0, high using LATDbits.LATD0.

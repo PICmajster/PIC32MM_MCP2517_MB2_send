@@ -1,3 +1,12 @@
+/*
+    File Name:        :  main.c
+
+    Device            :  PIC32MM0256GPM048
+    Compiler          :  XC32 2.05
+    MPLAB             :  MPLAB X 4.15
+    Created by        :  http://strefapic.blogspot.com
+*/
+
 #include <string.h>
 #include "mcc_generated_files/mcc.h"
 #include "delay.h"

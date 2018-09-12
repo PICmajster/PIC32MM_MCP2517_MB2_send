@@ -18,7 +18,6 @@
 
 #define LED1_TOG PORTB ^= (1<<_PORTB_RB6_POSITION) /*changes the bit state to the opposite*/
 
-
 void TransmitMessageLoad(char *msg);
         
 CAN_TX_FIFO_EVENT         txFlags;
@@ -52,11 +51,8 @@ uint8_t                   txData[MAX_DATA_BYTES];
               lcd_String(Temperature_bufor); /*display temperature on the LCD*/
               lcd_String("\x01""C");/*display the Celsius degree sign and put C*/
               }
-                                                     
-          }
-      
-
-    }
+           }
+       }
 }
 
 
@@ -75,11 +71,9 @@ uint8_t                   txData[MAX_DATA_BYTES];
      txObj.bF.ctrl.RTR = 0; /*not a remote frame request*/
      txObj.bF.ctrl.DLC = CAN_DLC_8; /*8 data bytes*/
      txObj.bF.ctrl.SEQ = 1; /*sequence: doesn't get transmitted but will be stored in TEF*/
-     
-         
-    DRV_CANFDSPI_TransmitChannelLoad(CAN_FIFO_CH1, &txObj, msg, DRV_CANFDSPI_DlcToDataBytes(txObj.bF.ctrl.DLC), true); 
-    
-         
+     /*send message object and set UINC*/       
+     DRV_CANFDSPI_TransmitChannelLoad(CAN_FIFO_CH1, &txObj, msg, DRV_CANFDSPI_DlcToDataBytes(txObj.bF.ctrl.DLC), true); 
+             
  }
 
 

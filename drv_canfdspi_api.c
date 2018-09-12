@@ -520,13 +520,10 @@ void DRV_CANFDSPI_MY_Configure(void)
 {
    /*reset device, Module is in Configuration mode*/
    DRV_CANFDSPI_Reset();
-  
    /*Oscillator config*/
    /*Nothing needs to be done here. The default settings will suffice*/
-              
    /*Input/Output configuration : use nINT0 and nINT1*/
    DRV_CANFDSPI_GpioModeConfigure(GPIO_MODE_INT,GPIO_MODE_INT);
-   
    /*CAN configuration : disable ISO_CRC, disable TEF, disable TXQ*/
    CAN_CONFIG config ;
    DRV_CANFDSPI_ConfigureObjectReset(&config);
@@ -535,42 +532,26 @@ void DRV_CANFDSPI_MY_Configure(void)
    config.TXQEnable = 0;
    config.BitRateSwitchDisable = 1 ;
    DRV_CANFDSPI_Configure(&config);
-   
    /*Bit Time configuration : 125K/500K , 80% sample point , SYSCLK 20MHz*/
    DRV_CANFDSPI_BitTimeConfigure(CAN_125K_500K, CAN_SSP_MODE_AUTO, CAN_SYSCLK_20M);
-   
-     
-    /*FIFO 1: Transmit FIFO; 1 messages, 64 byte maximum payload, low priority*/
-    CAN_TX_FIFO_CONFIG txfConfig;
-    DRV_CANFDSPI_TransmitChannelConfigureObjectReset(&txfConfig);
-    txfConfig.FifoSize = 0; //0 = 1 message
-    txfConfig.PayLoadSize = CAN_PLSIZE_8;
-    txfConfig.TxPriority = 0;
-    DRV_CANFDSPI_TransmitChannelConfigure(CAN_FIFO_CH1, &txfConfig);
-
-    /*FIFO 2: Receive FIFO; 1 messages, 8 byte maximum payload, time stamping disabled*/
-//    CAN_RX_FIFO_CONFIG rxfConfig;
-//    rxfConfig.FifoSize = 0;
-//    rxfConfig.PayLoadSize = CAN_PLSIZE_64;
-//    rxfConfig.RxTimeStampEnable = 0;
-//    DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_CH2, &rxfConfig);
-    
-     /*Interrupt TX eneable*/
-    DRV_CANFDSPI_ModuleEventEnable(CAN_TX_EVENT); //if TX and RX , (CAN_RX_EVENT | CAN_TX_EVENT)
-    /*Interrupt TX enable for TX FIFO NOT FULL*/
-    DRV_CANFDSPI_TransmitChannelEventEnable(CAN_FIFO_CH1, CAN_TX_FIFO_NOT_FULL_EVENT);
-    
-    /*Double Check RAM Usage: 216 Bytes out of a maximum of 2048 Bytes -> OK.*/
-    /*Disable ECC*/
-    DRV_CANFDSPI_EccDisable();
-
-    /*Initialize RAM*/
-    DRV_CANFDSPI_RamInit(0xff);
-
-    /*Configuration Done: Select Normal Mode*/
-    DRV_CANFDSPI_OperationModeSelect(CAN_NORMAL_MODE);
-    
-}
+   /*FIFO 1: Transmit FIFO; 1 messages, 64 byte maximum payload, low priority*/
+   CAN_TX_FIFO_CONFIG txfConfig;
+   DRV_CANFDSPI_TransmitChannelConfigureObjectReset(&txfConfig);
+   txfConfig.FifoSize = 0; //0 = 1 message
+   txfConfig.PayLoadSize = CAN_PLSIZE_8; //8 byte for message
+   txfConfig.TxPriority = 0;
+   DRV_CANFDSPI_TransmitChannelConfigure(CAN_FIFO_CH1, &txfConfig);
+   /*Interrupt TX eneable*/
+   DRV_CANFDSPI_ModuleEventEnable(CAN_TX_EVENT); //if TX and RX , (CAN_RX_EVENT | CAN_TX_EVENT)
+   /*Interrupt TX enable for TX FIFO NOT FULL*/
+   DRV_CANFDSPI_TransmitChannelEventEnable(CAN_FIFO_CH1, CAN_TX_FIFO_NOT_FULL_EVENT);
+   /*Disable ECC*/
+   DRV_CANFDSPI_EccDisable();
+   /*Initialize RAM*/
+   DRV_CANFDSPI_RamInit(0x00);
+   /*Configuration Done: Select Normal Mode*/
+   DRV_CANFDSPI_OperationModeSelect(CAN_NORMAL_MODE); /*CAN FD and CAN2.0 support*/
+ }
 
 int8_t DRV_CANFDSPI_ConfigureObjectReset(CAN_CONFIG* config)
 {

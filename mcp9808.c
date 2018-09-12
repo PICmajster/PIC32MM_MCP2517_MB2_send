@@ -54,9 +54,8 @@ void read_Temp(void) {
     /*conversion of float to string and saving the result to a buffer*/
     sprintf(Temperature_bufor,"%2.1f",Temperature);
     /*wyswietlamy temperature na LCD*/
-    lcd_Locate(2,8);
-    lcd_String(Temperature_bufor);
-    lcd_String("\x01""C");/*wyswietl znak stopnia plus literka C*/
-  
-          
+//    lcd_Locate(2,8);
+//    lcd_String(Temperature_bufor);
+//    lcd_String("\x01""C");/*wyswietl znak stopnia plus literka C*/
+              
 }

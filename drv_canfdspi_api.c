@@ -537,7 +537,7 @@ void DRV_CANFDSPI_MY_Configure(void)
    DRV_CANFDSPI_Configure(&config);
    
    /*Bit Time configuration : 125K/500K , 80% sample point , SYSCLK 20MHz*/
-   DRV_CANFDSPI_BitTimeConfigure(CAN_125K_500K, CAN_SSP_MODE_OFF, CAN_SYSCLK_20M);
+   DRV_CANFDSPI_BitTimeConfigure(CAN_125K_500K, CAN_SSP_MODE_AUTO, CAN_SYSCLK_20M);
    
      
     /*FIFO 1: Transmit FIFO; 1 messages, 64 byte maximum payload, low priority*/
@@ -555,6 +555,11 @@ void DRV_CANFDSPI_MY_Configure(void)
 //    rxfConfig.RxTimeStampEnable = 0;
 //    DRV_CANFDSPI_ReceiveChannelConfigure(CAN_FIFO_CH2, &rxfConfig);
     
+     /*Interrupt TX eneable*/
+    DRV_CANFDSPI_ModuleEventEnable(CAN_TX_EVENT); //if TX and RX , (CAN_RX_EVENT | CAN_TX_EVENT)
+    /*Interrupt TX enable for TX FIFO NOT FULL*/
+    DRV_CANFDSPI_TransmitChannelEventEnable(CAN_FIFO_CH1, CAN_TX_FIFO_NOT_FULL_EVENT);
+    
     /*Double Check RAM Usage: 216 Bytes out of a maximum of 2048 Bytes -> OK.*/
     /*Disable ECC*/
     DRV_CANFDSPI_EccDisable();
@@ -563,7 +568,7 @@ void DRV_CANFDSPI_MY_Configure(void)
     DRV_CANFDSPI_RamInit(0xff);
 
     /*Configuration Done: Select Normal Mode*/
-    DRV_CANFDSPI_OperationModeSelect(CAN_CLASSIC_MODE);
+    DRV_CANFDSPI_OperationModeSelect(CAN_NORMAL_MODE);
     
 }
 
